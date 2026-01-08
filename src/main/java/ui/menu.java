@@ -19,20 +19,26 @@ public class menu {
 
     private void login() {
 
-        System.out.println("usuario: ");
-        String usuario = tec.nextLine();
-        System.out.println("Clave: ");
-        String clave = tec.nextLine();
+        int i = 0;
+        do {
+            System.out.println("usuario: ");
+            String usuario = tec.nextLine();
+            System.out.println("Clave: ");
+            String clave = tec.nextLine();
 
-        if (servicie.estaVacio()) {
-            System.out.println("No hay registros");
-            return;
-        }
-        if (servicie.login(usuario, clave)) {
-            System.out.println("Acceso concedido");
-        } else {
-            System.out.println("Usuario o clave incorrectas");
-        }
+            if (servicie.estaVacio()) {
+                System.out.println("No hay registros");
+                return;
+            }
+            if (servicie.login(usuario, clave)) {
+                System.out.println("Acceso concedido");
+                return;
+            } else {
+                System.out.println("Usuario o clave incorrectas");
+                i++;
+            }
+        } while (i < 3);
+        System.out.println("Supero el limite de intentos");
     }
 
     private void mostrar() {
