@@ -21,15 +21,20 @@ public class menu {
 
         int i = 0;
         do {
-            System.out.println("usuario: ");
-            String usuario = tec.nextLine();
-            System.out.println("Clave: ");
-            String clave = tec.nextLine();
-
             if (servicie.estaVacio()) {
                 System.out.println("No hay registros");
                 return;
             }
+            System.out.println("usuario: ");
+            String usuario = tec.nextLine();
+            System.out.println("Clave: ");
+            String clave = tec.nextLine();
+            if (usuario.isBlank() || clave.isBlank()) {
+                System.out.println("El usuario o la clave no pueden estar vacios");
+                i++;
+                continue;
+            }
+
             if (servicie.login(usuario, clave)) {
                 System.out.println("Acceso concedido");
                 return;
@@ -60,6 +65,10 @@ public class menu {
         String usuario = tec.nextLine();
         System.out.println("Clave");
         String clave = tec.nextLine();
+        if (usuario.isBlank() || clave.isBlank()) {
+            System.out.println("El usuario o la clave no pueden estar vacios");
+            return;
+        }
 
         if (servicie.resgistrar(usuario, clave)) {
             System.out.println("Usuario registrado");
@@ -70,11 +79,17 @@ public class menu {
 
     public void mostrarMenu() {
 
-        int option;
+        int option = 0;
 
         do {
             System.out.println("Menu\n1.Registrar\n2.Mostrar\n3.Login\n4.Salir");
-            option = tec.nextInt();
+            try {
+                option = tec.nextInt();
+            } catch (Exception e) {
+                System.out.println("Opcion invalida, ingresa un numero");
+                tec.nextLine();
+                continue;
+            }
             tec.nextLine();
 
             switch (option) {
